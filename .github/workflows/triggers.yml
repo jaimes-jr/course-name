@@ -1,0 +1,53 @@
+name: Triggers
+run-name: ¡Estoy Aprendiendoa usar Triggers!
+on: 
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths: 
+      - '**.js'
+  issues:
+    types:
+      - labeled  
+  workflow_dispatch:
+    inputs:
+      lenguaje_favortio:
+        description: 'Lenguaje Favorito'
+        default: Node
+        required: true
+        type: choice
+        options:
+          - JavaScript
+      nombre: 
+        description: 'Tu Nombre'
+        required: true
+        default: Jose
+        type: string
+  schedule:
+    - cron: '15 16 * * *'
+jobs:
+  hola-mundo-manual:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Definir nombre
+        run: echo "USERNAME=${{ inputs.nombre }}" >> $GITHUB_ENV
+      - name: Definir lenguaje
+        run: echo "LANGUAGE=${{inputs.lenguaje_favortio}}" >> $GITHUB_ENV
+      - name: Correr Script
+        run: Node hola_lenguaje.js
+  hola-mundo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Definir Variable
+        run: echo "USERNAME=${{github.actor}}" >> $GITHUB_ENV
+      - name: Correr Script
+        run: Node hola_mundo.js
+     
+          
