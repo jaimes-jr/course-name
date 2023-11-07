@@ -48,6 +48,6 @@ jobs:
       - name: Definir Variable
         run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
       - name: Correr Script
-        run: node hola_mundo.js
+        run: node main.js
      
           
